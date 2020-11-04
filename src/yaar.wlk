@@ -55,7 +55,7 @@ class BarcoPirata{
 	
 	method tripulantePasadoMasDinero() = self.pasados().max({unPir => unPir.monedas()})
 	
-	method tripulanteQInvitoAMas() = tripulantes.max({unPir => unPir.cantidadInvitados()})
+	method tripulanteQInvitoAMas() = tripulantes.max({unPir => unPir.cantInvitados()})
 	
 	method puedeSerSaqueadoPor(pirata) = pirata.pasadoDeGrog()
 }
@@ -67,6 +67,8 @@ class Pirata{
 	const invitoA = []	
 	
 	method cantInvitados() = invitoA.size()
+	
+	method tiene10Items() = items.size() >=10
 	
 	method items() = items
 	
@@ -126,20 +128,16 @@ class Saqueo inherits Mision{
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class Victima{
-	
-}
-
 class CiudadCostera{
 	const habitantes = []
 	
-	method esVulnerableA(barco) = barco.cantidadTripulantes() >= 0.4 * habitantes || barco.todosPasadosDeGrog()
+	method esVulnerableA(barco) = barco.cantidadTripulantes() >= 0.4 * habitantes.size() || barco.todosPasadosDeGrog()
 	
 	method agregarHabitante(hab){
 		habitantes.add(hab)
 	}
 	
-	method puedeSerSaqueadoPor(pirata) = pirata.nivelEbriedadAlMenos50()
+	method puedeSerSaqueadoPor(pirata) = pirata.ebriedadAlMenos50()
 	
 	
 }
